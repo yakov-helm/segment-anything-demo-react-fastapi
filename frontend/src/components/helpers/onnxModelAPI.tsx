@@ -69,13 +69,6 @@ const queryModelReturnTensors = async ({
 }: queryModelReturnTensorsProps) => {
   if (!API_ENDPOINT) return;
   
-  const response = fetch(API_LIST_ALL, {method: "GET"}).then(
-    async (segResponse) => {
-      const segJSON = await segResponse.json();
-      console.log(segJSON);
-    }
-  );
-
   const segRequest = fetch(`${API_ENDPOINT}/${imgName}`, {
     method: "POST",
     body: blob,
