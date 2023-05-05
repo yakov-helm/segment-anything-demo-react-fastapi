@@ -93,8 +93,8 @@ const queryModelReturnTensors = async ({
     // handleSegModelResults({tensor: lowResTensor,});
     // console.log(segJSON)
 
-    const assertRoot = "/assets/gallery"
-    Promise.resolve(loadNpyTensor(`${assertRoot}/${segJSON.npy}`, "float32")).then(
+    const assetRoot = "/assets/gallery"
+    Promise.resolve(loadNpyTensor(`${assetRoot}/${segJSON.npy}`, "float32")).then(
       (embedding) => handleSegModelResults({
         tensor:embedding
       })

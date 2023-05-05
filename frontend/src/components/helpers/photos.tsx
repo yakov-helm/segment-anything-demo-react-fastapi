@@ -1,45 +1,17 @@
-const photos = [
-  {
-    src: "/assets/gallery/1.jpg",
-    width: 1920,
-    height: 1080,
-  },
-  {
-    src: "/assets/gallery/2.jpg",
-    width: 1920,
-    height: 1080,
-  },
-  {
-    src: "/assets/gallery/3.jpg",
-    width: 1920,
-    height: 1080,
-  },
-  {
-    src: "/assets/gallery/4.jpg",
-    width: 1920,
-    height: 1080,
-  },
-  {
-    src: "/assets/gallery/5.jpg",
-    width: 1920,
-    height: 1080,
-  },
-  {
-    src: "/assets/gallery/6.jpg",
-    width: 1072,
-    height: 608,
-  },
-  {
-    src: "/assets/gallery/7.jpg",
-    width: 1080,
-    height: 1440,
-  },
-  {
-    src: "/assets/gallery/8.jpg",
-    width: 2048,
-    height: 1365,
-  },
-  
-];
+import { API_LIST_ALL } from "../../enviroments";
+
+
+const getPhotos = (): any[] => {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", API_LIST_ALL, false);
+  xhr.send();
+  const json = JSON.parse(xhr.response);
+  // console.log("GOT LIST OF FILES");
+  // console.log(json);
+  // console.log("DONE LIST OF FILES");
+  return json["files"];
+}
+
+const photos = getPhotos();
 
 export default photos;
