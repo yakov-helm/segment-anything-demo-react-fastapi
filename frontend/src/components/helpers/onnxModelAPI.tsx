@@ -11,7 +11,7 @@ import {
   setParmsandQueryModelProps,
 } from "./Interfaces";
 
-import { API_LIST_ALL, ALL_MASK_API_ENDPOINT, API_ENDPOINT, ERASE_API_ENDPOINT } from "../../enviroments";
+import { ALL_MASK_API_ENDPOINT, API_ENDPOINT, ERASE_API_ENDPOINT } from "../../enviroments";
 /* @ts-ignore */
 import npyjs from "npyjs";
 

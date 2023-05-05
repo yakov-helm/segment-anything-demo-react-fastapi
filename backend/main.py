@@ -15,8 +15,8 @@ GALLERY = f"{os.path.abspath(os.path.join(os.getcwd(), os.pardir))}/frontend/src
 
 
 @app.get("/ai/list")
-def list_files(request: Request):
-    body = request.body()
+async def list_files(request: Request):
+    body = await request.body()
     fnames = [fname for fname in os.listdir(GALLERY) if fname.endswith('.jpg') or fname.endswith('.png')]
     out = []
     for fname in sorted(fnames):
@@ -28,15 +28,15 @@ def list_files(request: Request):
 
 @functools.lru_cache()
 @app.post("/ai/embedded/{file_name}")
-async def embedded(request: Request, file_name:str):
+async def embedded(request: Request, file_name: str):
+    print("COMPUTING THE EMBEDDING")
     body = await request.body()
-    
     root = f"{GALLERY}/{file_name}.npy"
-    checkpoint = "sam_vit_b.pth"
-    model_type = "vit_b"
-    print(root)
-    make_embedding(body, root, checkpoint, model_type)
-    
+    if not os.path.isfile(root):
+        checkpoint = "sam_vit_b.pth"
+        model_type = "vit_b"
+        print('PRODUCED EMBEDDING IN', root)
+        make_embedding(body, root, checkpoint, model_type)
     return {"npy": f"{file_name}.npy"}
 
 
