@@ -11,7 +11,7 @@ import {
   setParmsandQueryModelProps,
 } from "./Interfaces";
 
-import { ALL_MASK_API_ENDPOINT, API_ENDPOINT, ERASE_API_ENDPOINT } from "../../enviroments";
+import { API_LIST_ALL, ALL_MASK_API_ENDPOINT, API_ENDPOINT, ERASE_API_ENDPOINT } from "../../enviroments";
 /* @ts-ignore */
 import npyjs from "npyjs";
 
@@ -69,6 +69,13 @@ const queryModelReturnTensors = async ({
 }: queryModelReturnTensorsProps) => {
   if (!API_ENDPOINT) return;
   
+  const response = fetch(API_LIST_ALL, {method: "GET"}).then(
+    async (segResponse) => {
+      const segJSON = await segResponse.json();
+      console.log(segJSON);
+    }
+  );
+
   const segRequest = fetch(`${API_ENDPOINT}/${imgName}`, {
     method: "POST",
     body: blob,
@@ -93,8 +100,8 @@ const queryModelReturnTensors = async ({
     // handleSegModelResults({tensor: lowResTensor,});
     // console.log(segJSON)
 
-    const assertRoot = "/assets/gallery"
-    Promise.resolve(loadNpyTensor(`${assertRoot}/${segJSON.npy}`, "float32")).then(
+    const assetRoot = "/assets/gallery"
+    Promise.resolve(loadNpyTensor(`${assetRoot}/${segJSON.npy}`, "float32")).then(
       (embedding) => handleSegModelResults({
         tensor:embedding
       })
